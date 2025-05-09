@@ -130,6 +130,11 @@ for model_name, metrics in results.items():
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train_scaled, y_train)
 y_pred_rf = rf.predict(X_test_scaled)
+
+#jotlib
+import joblib
+joblib.dump(rf, "price_predictor.joblib")
+
 # Residual Plot
 residuals = y_test - y_pred_rf
 plt.scatter(y_pred_rf, residuals, alpha=0.6, color='blue')
