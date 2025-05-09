@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartHomePrice - Accurate House Price Forecasting</title>
+    <link rel="stylesheet" href="./data/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SmartHomePrice</h1>
+            <p>Accurate house price forecasting using advanced data science techniques</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#predictor">Price Predictor</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#market-trends">Market Trends</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="predictor" class="predictor-section">
+            <h2>House Price Predictor</h2>
+            <div class="predictor-container">
+                <form id="pricePredictionForm" class="prediction-form">
+                    <div class="form-group">
+                        <label for="location">Location (ZIP Code)</label>
+                        <input type="text" id="location" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sqft">Square Footage</label>
+                            <input type="number" id="sqft" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearBuilt">Year Built</label>
+                            <input type="number" id="yearBuilt" min="1800" max="2025" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bedrooms">Bedrooms</label>
+                            <select id="bedrooms" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3" selected>3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bathrooms">Bathrooms</label>
+                            <select id="bathrooms" required>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2" selected>2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Type</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="propertyType" value="single_family" checked> Single Family</label>
+                            <label><input type="radio" name="propertyType" value="condo"> Condo</label>
+                            <label><input type="radio" name="propertyType" value="townhouse"> Townhouse</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amenities">Amenities (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="amenities" value="garage"> Garage</label>
+                            <label><input type="checkbox" name="amenities" value="pool"> Pool</label>
+                            <label><input type="checkbox" name="amenities" value="basement"> Basement</label>
+                            <label><input type="checkbox" name="amenities" value="fireplace"> Fireplace</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="predict-button">Estimate Price</button>
+                </form>
+
+                <div id="results" class="results-container hidden">
+                    <h3>Estimated Home Value</h3>
+                    <div class="price-display" id="predictedPrice">$---,---</div>
+                    <div class="confidence">Confidence: <span id="confidenceLevel">--%</span></div>
+
+                    <div class="price-range">
+                        <div class="range-label">Low Estimate</div>
+                        <div class="range-bar">
+                            <div class="range-fill" id="rangeFill"></div>
+                        </div>
+                        <div class="range-label">High Estimate</div>
+                        <div class="range-values">
+                            <span id="lowEstimate">$---,---</span>
+                            <span id="highEstimate">$---,---</span>
+                        </div>
+                    </div>
+
+                    <h4>Price Factors</h4>
+                    <div class="factors-chart">
+                        <canvas id="factorsChart"></canvas>
+                    </div>
+
+                    <button id="saveResults" class="save-button">Save Results</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="info-section">
+            <h2>How Our Forecasting Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Data Collection</h3>
+                    <p>We analyze millions of data points from recent sales, tax assessments, and market trends.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Smart Regression</h3>
+                    <p>Advanced machine learning models identify complex patterns in housing data.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Feature Analysis</h3>
+                    <p>Our system evaluates how each property feature contributes to the final price.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Accurate Prediction</h3>
+                    <p>We provide an estimated value with confidence intervals based on current market conditions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="market-trends" class="info-section">
+            <h2>Current Market Trends</h2>
+            <div class="chart-container">
+                <canvas id="marketTrendsChart"></canvas>
+            </div>
+            <div class="trends-info">
+                <div class="trend-item">
+                    <div class="trend-value" id="avgPrice">$---,---</div>
+                    <div class="trend-label">Average Home Price</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-value" id="priceChange">--%</div>
+                    <div class="trend-label">YoY Price Change</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-value" id="daysOnMarket">--</div>
+                    <div class="trend-label">Days on Market</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="about">
+        <div class="container">
+            <p>© 2023 SmartHomePrice. All predictions are estimates based on available data and should not be considered professional appraisals.</p>
+            <p>Powered by advanced regression algorithms and real estate market analytics.</p>
+        </div>
+    </footer>
+
+    <script src="./data/script.js"></script>
+</body>
+</html>
