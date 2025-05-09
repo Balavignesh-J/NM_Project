@@ -34,7 +34,7 @@
                 <form id="pricePredictionForm" class="prediction-form">
                     <div class="form-group">
                         <label for="location">Location (ZIP Code)</label>
-                        <input type="text" id="location" required>
+                        <input type="text" id="location" pattern="\d{5}" title="5-digit ZIP code" required>
                     </div>
 
                     <div class="form-row">
